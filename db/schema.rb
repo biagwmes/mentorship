@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_25_011457) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_28_190157) do
+  create_table "mentees", force: :cascade do |t|
+    t.string "name"
+    t.string "current_title"
+    t.string "current_company"
+    t.string "email"
+    t.string "linkedin_url"
+    t.text "bio"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_mentees_on_email", unique: true
+  end
+
+  create_table "mentorings", force: :cascade do |t|
+    t.integer "mentee_id", null: false
+    t.integer "mentor_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mentee_id"], name: "index_mentorings_on_mentee_id"
+    t.index ["mentor_id"], name: "index_mentorings_on_mentor_id"
+  end
+
   create_table "mentors", force: :cascade do |t|
     t.string "name"
     t.string "current_title"
@@ -23,4 +44,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_25_011457) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_mentors_on_email", unique: true
   end
+
+  add_foreign_key "mentorings", "mentees"
+  add_foreign_key "mentorings", "mentors"
 end

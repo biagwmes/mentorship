@@ -1,4 +1,7 @@
 class Mentor < ApplicationRecord
+  has_many :mentorings
+  has_many :mentees, through: :mentorings
+
   normalizes :name, with: ->(n) { n.strip.downcase.gsub(/\s+/, " ").titleize }
   normalizes :email, with: ->(e) { e.strip.downcase.gsub(/\s+/, "") }
   normalizes :linkedin_url, with: ->(url) { url.strip.downcase.gsub(/\s+/, "") }

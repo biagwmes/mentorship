@@ -1,0 +1,23 @@
+<h1>Mentorias</h1>
+
+<%= form_with model: @mentoring, local: true do |form| %>
+  <div>
+    <label>Mentora:</label>
+    <%= form.select :mentor_id,
+        options_from_collection_for_select(@mentors, 'id', 'name'), 
+      { prompt: "Selecione uma mentora" },
+      { class: "form-control" } %>
+  </div>
+
+  <div>
+    <label>Mentorada:</label>
+    <%= form.select :mentee_id, 
+        options_from_collection_for_select(@mentees, 'id', 'name'), 
+      { prompt: "Selecione uma mentorada" },
+      { class: "form-control" } %>
+  </div>
+
+  <div>
+    <%= form.submit "Salvar", class: "btn btn-primary" %>
+  </div>
+<% end %>
